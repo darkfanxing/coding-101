@@ -3,7 +3,6 @@
     <div class="channel">
       <vue-scroll ref="vs" @handle-resize="handleResize">
         <div class="white--text mb-4" v-for="(message, index) in messages" :key="index">
-          
           <div>
             <span class="title">{{ message.name }} 說</span>
             <span class="content" v-if="message.content">{{ message.content }}</span>
