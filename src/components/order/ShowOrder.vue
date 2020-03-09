@@ -58,11 +58,6 @@ export default {
     SetOrderButton,
     EditOrderButton
   },
-  methods: {
-    editItem(item) {
-      console.log(item.machine);
-    }
-  },
   firebase() {
     return {
       orders: db.ref("/orders")
