@@ -80,9 +80,15 @@ export default {
     agv() {
       this.messages = []
       this.getMessages()
+      console.log(111)
+      console.log(this.messages)
     },
     lastMessage() {
-      this.messages.push(this.lastMessage[0])
+      if(this.lastMessage[0] != undefined) {
+        this.messages.push(this.lastMessage[0])
+      }
+      console.log(222)
+      console.log(this.messages)
     }
   },
   methods: {
