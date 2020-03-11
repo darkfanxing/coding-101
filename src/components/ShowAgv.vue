@@ -34,11 +34,12 @@
             ></v-select>
           </v-col>
           <v-col class="d-flex justify-center align-center">
-            <v-btn @click="sendData" color="primary">送出訊息</v-btn>
+            <v-btn @click.once="sendData" color="primary">送出訊息</v-btn>
           </v-col>
         </v-row>
       </v-form>
     </div>
+    
   </div>
 </template>
 
@@ -62,7 +63,8 @@ export default {
         "到站 D",
         "到站 E",
         "到站 F"
-      ]
+      ],
+      lastMessage: []
     }
   },
   props: {
@@ -78,6 +80,9 @@ export default {
     agv() {
       this.messages = []
       this.getMessages()
+    },
+    lastMessage() {
+      this.messages.push(this.lastMessage[0])
     }
   },
   methods: {
@@ -92,7 +97,6 @@ export default {
         db.ref(`/chatbot/${this.agv}`).push(message);
 
         this.$refs.form.reset()
-        this.messages.push(message)
       }
     },
     handleResize() {
@@ -112,21 +116,29 @@ export default {
     },
     getMessages() {
       db.ref(`/chatbot/${this.agv}`).once('value', snapshot => {
-        const documents = snapshot.val()
-        for (let i in documents){
-          let message = {
-            text: documents[i].text,
-            content: documents[i].content,
-            name: documents[i].name,
-            time: documents[i].time
-          }
+        const messages = snapshot.val()
+        this.parserMessages(messages)
 
-          this.messages.push(message)
-        }
-        
         this.$refs["vs"].scrollTo({y: 90000});
       })
+    },
+    parserMessages(messages) {
+      for (let i in messages){
+        let message = {
+          text: messages[i].text,
+          content: messages[i].content,
+          name: messages[i].name,
+          time: messages[i].time
+        }
+
+        this.messages.push(message)
+      }
     }
+  },
+  firebase() {
+    return {
+      lastMessage: db.ref(`/chatbot/${this.agv}`).limitToLast(1)
+    };
   }
 }
 </script>
@@ -147,20 +159,6 @@ export default {
   margin:0 auto;
   box-sizing:border-box;
   background:rgba(0, 0, 0, .4);
-}
-
-#input {
-  position:absolute;
-  z-index:2;
-  height:90px;
-  width:100%;
-  left:0;
-  bottom:0;
-  margin:0;
-  padding: 5px 30px;
-  box-sizing:border-box;
-  background:#222;
-  color:#fff;
 }
 
 .content {
