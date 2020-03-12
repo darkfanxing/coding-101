@@ -34,7 +34,7 @@
             ></v-select>
           </v-col>
           <v-col class="d-flex justify-center align-center">
-            <v-btn @click.once="sendData" color="primary">送出訊息</v-btn>
+            <v-btn @click="sendData" color="primary">送出訊息</v-btn>
           </v-col>
         </v-row>
       </v-form>
