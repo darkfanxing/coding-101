@@ -3,12 +3,29 @@
     <div class="channel">
       <vue-scroll ref="vs" @handle-resize="handleResize">
         <div class="white--text mb-4" v-for="(message, index) in messages" :key="index">
-          <div>
-            <span class="title">{{ message.name }} 說</span>
-            <span class="content" v-if="message.content">{{ message.content }}</span>
-            <span class="content" v-if="message.text">{{ message.text }}</span>
+          <div v-if="message.content">
+            <div class="d-flex align-center">
+              <span class="title mx-2 mt-2">
+                {{ message.name }}
+                <div>
+                  <span class="grey--text caption" style="position: relative; bottom: 10px;">{{ message.time }}</span>
+                </div>
+              </span>
+              <span class="content">{{ message.content }}</span>
+            </div>
+            
           </div>
-          <span class="grey--text caption" style="position: relative; bottom: 10px;">{{ message.time }}</span>
+          <div v-if="message.text">
+            <div class="d-flex justify-end align-center">
+              <span class="content">{{ message.text }}</span>
+              <span class="title mr-3 mt-2 text-end">
+                {{ message.name }}
+                <div>
+                  <span class="grey--text caption" style="position: relative; bottom: 10px;">{{ message.time }}</span>
+                </div>
+              </span>
+            </div>
+          </div>
         </div>
         <div id="bottom"></div>
       </vue-scroll>
@@ -34,12 +51,11 @@
             ></v-select>
           </v-col>
           <v-col class="d-flex justify-center align-center">
-            <v-btn @click.once="sendData" color="primary">送出訊息</v-btn>
+            <v-btn @click="sendData" color="primary">送出訊息</v-btn>
           </v-col>
         </v-row>
       </v-form>
     </div>
-    
   </div>
 </template>
 
@@ -102,7 +118,7 @@ export default {
       }
     },
     handleResize() {
-      this.$refs.vs.scrollBy({dy: 600}, 500, "easeInQuad")
+      this.$refs.vs.scrollBy({dy: 900000}, 500, "easeInQuad")
     },
     getTime() {
       let date = new Date();
@@ -145,7 +161,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #channel-container {
   width: 100vw;
   height: 100vh;
@@ -153,6 +169,7 @@ export default {
   padding:0;
   background:url(https://i.imgur.com/IkK0jNa.jpg);
   background-size:cover;
+  overflow: "hidden";
 }
 
 .channel {
@@ -164,7 +181,7 @@ export default {
 }
 
 .content {
-  margin: 20px;
+  margin: 0 10px;
   padding: 8px 10px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
