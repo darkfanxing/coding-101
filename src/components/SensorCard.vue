@@ -3,7 +3,7 @@
     <v-card-text class="text-center">
       <img :src="sensor.path" style="width: 50px; height: 50px;">
       <h1 class="text-center my-5">{{ sensor.name }}</h1>
-      <div class="pb-0 title">{{ sensorData[0].data.toFixed(3) }} {{ sensor.unit }}</div>
+      <div class="pb-0 title">{{ getSensorsData }} {{ sensor.unit }}</div>
     </v-card-text>
   </v-card>
 </template>
@@ -25,7 +25,8 @@ export default {
   },
   computed: {
     getSensorsData() {
-      return this.sensorData.length == 0 ? "" : this.sensorData
+      console.log(this.sensorData)
+      return this.sensorData.length == 0 ? "" : this.sensorData[0].data.toFixed(3)
     }
   },
   firebase() {
