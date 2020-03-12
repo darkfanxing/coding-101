@@ -118,7 +118,7 @@ export default {
       }
     },
     handleResize() {
-      this.$refs.vs.scrollBy({dy: 600}, 500, "easeInQuad")
+      this.$refs.vs.scrollBy({dy: 900000}, 500, "easeInQuad")
     },
     getTime() {
       let date = new Date();
