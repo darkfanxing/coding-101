@@ -12,17 +12,8 @@
       :items="orders"
       :search="search"
       class="elevation-1"
-      show-select
-      :single-select="false"
     >
-      <template v-slot:top>
-        <v-toolbar flat color="white">
-          <v-spacer></v-spacer>
-          <RemoveOrderButton :selected="selected" />
-          <SetOrderButton />
-          <v-divider vertical class="mx-5"></v-divider>
-        </v-toolbar>
-      </template>
+      
 
       <template v-slot:item.action="{ item }">
         <EditOrderButton :orderInfo="item"/>
@@ -32,8 +23,8 @@
 </template>
 
 <script>
-import RemoveOrderButton from "@/components/order/RemoveOrderButton"
-import SetOrderButton from "@/components/order/SetOrderButton"
+// import RemoveOrderButton from "@/components/order/RemoveOrderButton"
+// import SetOrderButton from "@/components/order/SetOrderButton"
 import EditOrderButton from "@/components/order/EditOrderButton"
 import { db } from "@/plugins/db.js";
 
@@ -54,8 +45,8 @@ export default {
     };
   },
   components: {
-    RemoveOrderButton,
-    SetOrderButton,
+    // RemoveOrderButton,
+    // SetOrderButton,
     EditOrderButton
   },
   firebase() {
