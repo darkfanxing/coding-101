@@ -1,6 +1,7 @@
 # Coding-101
-a project for contest
+a project for Coding-101 contest
 
+# Usuage
 ## Project setup
 ```
 npm install
